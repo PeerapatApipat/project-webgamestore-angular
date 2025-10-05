@@ -1,0 +1,74 @@
+<div class="container">
+  <app-header></app-header>  
+  <div class="profile">
+
+
+
+    
+    <div class="profile-header">
+ <div class="avatar">
+  <img *ngIf="userdata?.profile_image; else defaultAvatar" [src]="userdata?.profile_image" alt="Profile Image">
+  <ng-template #defaultAvatar>
+    <div class="default-avatar"></div>
+  </ng-template>
+
+  <button (click)="editAvatar()">แก้ไขรูป</button>
+</div>
+
+<!-- Modal popup -->
+<div class="avatar-modal" *ngIf="isEditingAvatar">
+  <div class="modal-content">
+    <h3>เลือกไฟล์รูป</h3>
+    <input type="file" (change)="onFileSelected($event)" />
+    <div class="preview" *ngIf="previewUrl">
+      <img [src]="previewUrl" alt="Preview" />
+    </div>
+    <button (click)="saveAvatar()" [disabled]="!previewUrl">Save</button>
+    <button (click)="cancelAvatar()">Cancel</button>
+  </div>
+</div>
+
+
+
+  <!-- แสดงชื่อ / input สำหรับแก้ไข -->
+  <div class="name-edit">
+    <h2 *ngIf="!isEditingName">{{ userdata?.username }}</h2>
+
+    <div *ngIf="isEditingName" class="edit-name">
+      <input type="text" [(ngModel)]="editedName" />
+      <button (click)="saveName()">Save</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+
+  <div class="actions" *ngIf="!isEditingName">
+    <button (click)="editName()">Edit Name</button>
+    <button (click)="editAvatar()">Edit profile</button>
+
+  </div>
+</div>
+
+
+    <div class="bio">
+      <div>
+        <h3>BIO</h3>
+        <p>{{ bio }}</p>
+      </div>
+      <div>
+        <h3>me!</h3>
+        <p>{{ me }}</p>
+      </div>
+    </div>
+
+    <!-- <div class="games">
+      <h3>my games</h3>
+      <div class="game-card" *ngFor="let g of games">
+        <img [src]="g.img" alt="{{ g.title }}" />
+        <div class="info">
+          <h4>{{ g.title }}</h4>
+          <p>{{ g.desc }}</p>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

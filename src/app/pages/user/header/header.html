@@ -1,0 +1,27 @@
+<aside class="sidebar">
+  <div class="user-info" [routerLink]="'/profile'" style="cursor: pointer;">
+  <div class="avatar"></div>
+  <p class="username">{{ username }}</p>
+</div>
+
+
+  <nav>
+    <ul>
+      <li routerLink="/home"><i>🏠</i> Home</li>
+      <li routerLink="/store"><i>🛒</i> Store</li>
+      <li routerLink="/search"><i>🔍</i> Search Games</li>
+    </ul>
+
+    <p class="menu-label">account</p>
+    <ul>
+      <li routerLink="/wallet">Wallet</li>
+      <li routerLink="/topup">Top-up</li>
+      <li routerLink="/purchases">Purchase History</li>
+      <li routerLink="/library">Libraly</li>
+      <li routerLink="/cart">My Cart</li>
+      <li routerLink="/transactions">Transaction History</li>
+    </ul>
+
+    <button class="logout" (click)="logout()">Logout</button>
+  </nav>
+</aside>

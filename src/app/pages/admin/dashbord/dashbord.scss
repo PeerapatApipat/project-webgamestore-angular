@@ -1,0 +1,21 @@
+.Dashbord {
+padding-left: 100px;
+padding-top: 20px;
+  min-height: 100vh;
+  background: #000;
+    color: #fff;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #000;
+}
+
+app-header {
+  width: 250px;
+  background: #1a1a1a;
+  color: #fff;
+  flex-shrink: 0;
+//   padding: 20px;
+}

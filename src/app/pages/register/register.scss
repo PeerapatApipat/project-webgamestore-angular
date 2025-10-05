@@ -1,0 +1,231 @@
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+  padding: 20px;
+}
+
+.register-card {
+  background: #3a3a3a;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  color: #b0b0b0;
+  font-size: 14px;
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+// Profile Image Upload
+.profile-image-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #b0b0b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    background: #c0c0c0;
+    transform: scale(1.05);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  svg {
+    color: #3a3a3a;
+  }
+}
+
+// Form Styles
+form {
+  width: 100%;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+
+  &.has-error {
+    input {
+      border-color: #ef4444;
+    }
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    z-index: 1;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    background: #2d2d2d;
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    color: #b0b0b0;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: #888888;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #a855f7;
+      background: #333333;
+      color: #b0b0b0;
+    }
+
+    &:hover {
+      border-color: #5a5a5a;
+    }
+  }
+
+  .error-message {
+    display: block;
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+    padding-left: 4px;
+  }
+}
+
+// Register Button
+.register-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #a855f7 0%, #c026d3 100%);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(90deg, #9333ea 0%, #a21caf 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Login Link
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #b0b0b0;
+  font-size: 14px;
+
+  a {
+    color: #00d9ff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #00b8d4;
+      text-decoration: underline;
+    }
+  }
+}
+
+// Message
+.message {
+  text-align: center;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+
+  &.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+}
+/* login.scss หรือ register.scss */
+.messageErr{
+  font-size: 12px;       /* ตัวอักษรเล็กลง */
+  color: red;            /* สีแดง */
+  margin-top: 2px;       /* ระยะห่างจาก input */
+  margin-left: 5px;      /* ย่อเล็กน้อยให้ชิด input */
+  display: block;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+// input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #2d2d2d inset !important; /* ให้พื้นหลังกลับเป็นสีเทาเข้มเหมือน input ปกติ */
+  -webkit-text-fill-color: #b0b0b0 !important; /* ให้ตัวอักษรเป็นสีเทาอ่อนตามธีม */
+  transition: background-color 5000s ease-in-out 0s;
+}
+// Responsive
+@media (max-width: 480px) {
+  .register-card {
+    padding: 30px 20px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+
+}
