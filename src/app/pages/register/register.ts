@@ -62,12 +62,16 @@ export class Register implements OnInit {
 
       this.selectedFile = file;
 
-      // Create preview URL
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.previewUrl = e.target.result;
-      };
-      reader.readAsDataURL(file);
+      // // Create preview URL
+      // const reader = new FileReader();
+      // reader.onload = (e: any) => {
+      //   this.previewUrl = e.target.result;
+      // };
+      // reader.readAsDataURL(file);
+
+      // ใช้ createObjectURL แทน FileReader
+  this.previewUrl = URL.createObjectURL(file);
+
     }
   }
 
