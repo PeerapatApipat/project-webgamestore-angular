@@ -1,0 +1,221 @@
+/* General Styles */
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+*, *:before, *:after { box-sizing: inherit; }
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #121212; /* Darker background for the whole page */
+}
+
+.gamedetail {
+  flex: 1;
+  color: #fff;
+  overflow-y: auto;
+  padding: 3rem 5%; /* Adjusted padding */
+  background: #1e1e1e; /* Main content area background */
+}
+
+.status-message {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+/* Main Detail Grid */
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 500px) 1fr; /* Gallery with fixed max-width */
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+/* Gallery Styles */
+.gallery-container {
+  .main-image {
+    width: 80%;
+    aspect-ratio: 4 / 3; /* Adjusted aspect ratio */
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .thumbnail-strip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    .thumbnails {
+      display: flex;
+      gap: 0.75rem;
+      overflow: hidden;
+      flex-grow: 0.7;
+      img {
+        width: 100px; /* Adjusted size */
+        height: 56px;
+        object-fit: cover;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.3s ease;
+        opacity: 0.7;
+        &.active, &:hover {
+          border-color: #8A2BE2;
+          opacity: 1;
+        }
+      }
+    }
+    .nav-arrow {
+      background: #2c2c2c;
+      border: none;
+      color: #fff;
+      border-radius: 20%;
+      width: 20px;
+      height:20px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+  }
+}
+
+
+.info-container {
+  padding-top: 0;
+  .game-title {
+    font-size: 35px;
+    font-weight: 500;
+    margin: 0 0 1.5rem 0;
+  }
+  .game-description {
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 450px;
+  }
+  .info-tags p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #aaa;
+    strong { color: #ddd; }
+  }
+  .action-buttons {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 0.75rem;
+    .buy-btn {
+      flex-grow: 1;
+      max-width: 250px;
+      padding: 0.9rem;
+      background-color: #8A2BE2;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      &:hover { background-color: #7b24ca; }
+    }
+    .icon-btn {
+      width: 48px;
+      height: 48px;
+      background: #2c2c2c;
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      &:hover { background-color: #444; }
+    }
+  }
+}
+
+/* Tabs Section */
+.tabs-section {
+  padding-top: 2rem;
+  .tabs {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #333;
+    .tab-btn {
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding-bottom: 1rem;
+      cursor: pointer;
+      position: relative;
+      border-bottom: 3px solid transparent;
+      &.active, &:hover {
+        color: #fff;
+      }
+      &.active {
+        border-bottom-color: #8A2BE2;
+      }
+    }
+  }
+}
+
+/* Other Games */
+.other-games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.other-game-card {
+  background: transparent; /* Changed background */
+  border-radius: 8px;
+  overflow: hidden;
+  .other-card-image {
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    .edition-tag {
+        position: absolute; bottom: 8px; left: 8px;
+        background: #4a90e2; color: #fff; padding: 3px 8px;
+        font-size: 0.7rem; border-radius: 4px; font-weight: bold;
+    }
+  }
+  .other-card-content {
+    padding: 0;
+    .other-game-title { margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 500; }
+    .other-game-price { margin: 0.5rem 0; font-size: 0.9rem; color: #ccc; }
+    .other-game-description { font-size: 0.8rem; color: #888; }
+  }
+}
+
+.go-to-game-btn {
+  display: block;
+  width: 100%;
+  max-width: 530px; /* Match grid width */
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #8A2BE2;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover { background-color: #7b24ca; }
+}
+

@@ -1,0 +1,81 @@
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="container">
+  <app-header></app-header>
+
+  <div class="gamedetail" *ngIf="game.id; else loading">
+    <!-- Game Title (Moved to the top) -->
+    <h1 class="game-title-header">{{ game.title }}</h1>
+
+    <!-- Main Content Grid -->
+    <div class="detail-grid">
+      <!-- Left Column: Image Gallery -->
+      <div class="gallery-container">
+        <div class="main-image">
+          <img [src]="selectedImage" [alt]="game.title">
+        </div>
+        <div class="thumbnail-strip">
+          <button class="nav-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="thumbnails">
+            <img *ngFor="let img of game.gallery" 
+                 [src]="img" 
+                 [class.active]="img === selectedImage"
+                 (click)="changeSelectedImage(img)">
+          </div>
+          <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Right Column: Game Info & Actions -->
+      <div class="info-container">
+        <!-- Title has been removed from here -->
+        <p class="game-description">{{ game.description }}</p>
+        <div class="info-tags">
+          <p><strong>Game type :</strong> {{ game.category || 'N/A' }}, Psychological Horror</p>
+          <p><strong>Game Ranking :</strong> {{ game.ranking || 'N/A' }}</p>
+        </div>
+        <div class="action-buttons">
+          <button class="buy-btn" (click)="buyGame(game.id)">BUY ฿{{ game.price?.toFixed(2) }}</button>
+          <button class="icon-btn"><i class="fa-solid fa-cart-shopping"></i></button>
+          <button class="icon-btn"><i class="fa-solid fa-bookmark"></i></button>
+          <button class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="tabs-section">
+      <div class="tabs">
+        <button class="tab-btn">Reviews</button>
+        <button class="tab-btn">More</button>
+        <button class="tab-btn active">Other game</button>
+      </div>
+      <div class="tab-content">
+        <!-- Other Games Grid -->
+        <div class="other-games-grid">
+          <div class="other-game-card" *ngFor="let otherGame of otherGames">
+             <div class="other-card-image" [style.backgroundImage]="'url(' + otherGame.image_url + ')'">
+                <span class="edition-tag">THIS EDITION</span>
+             </div>
+             <div class="other-card-content">
+                <h3 class="other-game-title">{{ otherGame.title }}</h3>
+                <p class="other-game-price">฿{{ otherGame.price?.toFixed(2) }}</p>
+                <p class="other-game-description">{{ otherGame.description }}</p>
+             </div>
+          </div>
+        </div>
+        <!-- <button class="go-to-game-btn">GO TO GAME</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading/Error Template -->
+<ng-template #loading>
+  <div class="status-message">
+    <p *ngIf="!isError">Loading game details...</p>
+    <p *ngIf="isError">{{ message }}</p>
+  </div>
+</ng-template>
+

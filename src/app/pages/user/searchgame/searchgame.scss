@@ -1,0 +1,180 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #000;
+}
+
+app-header {
+  width: 250px;
+  background: #1a1a1a;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.searchgame {
+  flex: 1;
+  background: #111;
+  color: #fff;
+  padding: 2rem;
+  width: 100%;
+}
+
+/* 🔍 Search Bar (อยู่บนสุด) */
+.search-top {
+  display: flex;
+ justify-content: center;
+  margin-bottom: 1.5rem;
+  
+}
+
+.search-container {
+  position: relative;
+  width: 500px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.7rem 1rem 0.7rem 2.5rem;
+  background-color: #2c2c2c;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #dcdcdc;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s;
+  &:focus {
+    border-color: #8A2BE2;
+    box-shadow: 0 0 0 2px rgba(138,43,226,0.4);
+  }
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+/* 🏷️ Title Section */
+.page-header {
+  margin-bottom: 1.2rem;
+  text-align: left;
+
+  .title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+  }
+}
+
+/* Category Filter */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+
+  label {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+
+  select {
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #2c2c2c;
+    color: #dcdcdc;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:focus {
+      border-color: #8A2BE2;
+      box-shadow: 0 0 0 2px rgba(138,43,226,0.4);
+    }
+  }
+}
+
+/* Game Grid */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.game-card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  .card-image {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    background-color: #2c2c2c;
+
+    img, .image-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .edition-tag {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: #4a90e2;
+      color: #fff;
+      padding: 3px 8px;
+      font-size: 0.7rem;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+  }
+
+  .card-content {
+    padding: 1rem;
+    flex-grow: 1;
+
+    .game-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .game-price {
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+      color: #bfbfbf;
+    }
+
+    .game-description,
+    .game-category {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #999;
+    }
+  }
+
+  .card-actions {
+    text-align: right;
+    padding: 0 1rem 0.75rem 1rem;
+    color: #9c9c9c;
+  }
+}

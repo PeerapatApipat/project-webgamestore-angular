@@ -1,0 +1,72 @@
+<body>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="container">
+  <app-header></app-header>
+
+  <div class="editgame">
+    <div class="page-header">
+      <h2 class="title">Manage Games</h2>
+
+      <!-- Search Bar -->
+      <div class="search-container">
+        <i class="fa-solid fa-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search games..."
+          [(ngModel)]="searchTerm"
+          (input)="filterGames()"
+        />
+      </div>
+
+      <a routerLink="/newgame" class="add-new-btn">
+        <i class="fa-solid fa-plus"></i> New Game
+      </a>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="category-filter">
+      <label for="categorySelect">Filter by category:</label>
+      <select id="categorySelect" [(ngModel)]="selectedCategory" (change)="filterGames()">
+        <option value="">All Categories</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+
+    <!-- Game Grid -->
+    <div class="game-grid">
+      <div class="game-card" *ngFor="let game of filteredGames">
+        <div class="card-image">
+          <ng-container *ngIf="game.image_url; else placeholder">
+            <img [src]="game.image_url" [alt]="game.title">
+            <span class="edition-tag">THIS EDITION</span>
+          </ng-container>
+          <ng-template #placeholder>
+            <div class="image-placeholder"></div>
+          </ng-template>
+        </div>
+        <div class="card-content">
+          <h3 class="game-title">{{ game.title }}</h3>
+          <p class="game-price">฿{{ game.price?.toFixed(2) }}</p>
+          
+          <p class="game-description">{{ game.description }}</p>
+                    <p class="game-category" *ngIf="game.category">category : {{ game.category }}</p>
+
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn edit-btn" (click)="editGame(game.id)">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button class="icon-btn delete-btn" (click)="deleteGame(game.id)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
