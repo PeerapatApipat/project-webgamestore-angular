@@ -127,6 +127,7 @@ async saveAvatar() {
     const formData = new FormData();
     formData.append("userId", this.userId);
     formData.append("profile_image", this.selectedFile);
+    
 
     const updated = await this.authService.updateProfileImage(formData);
 
