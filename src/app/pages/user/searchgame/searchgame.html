@@ -35,9 +35,9 @@
       <!-- Game Grid -->
       <div class="game-grid">
         <div class="game-card" *ngFor="let game of filteredGames">
-          <div class="card-image">
-            <ng-container *ngIf="game.image_url; else placeholder">
-              <img [src]="game.image_url" [alt]="game.title" />
+          <div class="card-image" >
+            <ng-container *ngIf="game.image_url; else placeholder" >
+              <img [src]="game.image_url" [alt]="game.title"  (click)="viewGameDetails(game.id)"/>
               <span class="edition-tag">THIS EDITION</span>
             </ng-container>
             <ng-template #placeholder>
@@ -55,7 +55,9 @@
           </div>
 
           <div class="card-actions">
-            //ดูรายละเอียดเกม
+            <button class="detail-btn" (click)="viewGameDetails(game.id)">
+              <i class="fa-solid fa-circle-info"></i> ดูรายละเอียด
+            </button>
           </div>
         </div>
       </div>

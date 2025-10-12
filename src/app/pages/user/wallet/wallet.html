@@ -1,0 +1,62 @@
+<div class="container">
+  <app-header></app-header>
+
+  <div class="wallet">
+    <header>
+      <h1>Top-up</h1>
+      <div class="divider"></div>
+    </header>
+
+    <!-- ส่วนแสดงยอดเงินคงเหลือ -->
+    <section class="wallet-display">
+      <h2>my wallet</h2>
+      <div class="balance-card">
+        <div class="wallet-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+            <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z" />
+          </svg>
+        </div>
+        <span>MyWallet : {{ balance | number : '1.2-2' }} THB</span>
+      </div>
+    </section>
+
+    <!-- ส่วนเติมเงิน -->
+    <section class="topup-form">
+      <div class="form-card">
+        <div class="input-group">
+          <label for="topupAmount">จำนวนเงินฝากเข้า</label>
+          <div class="amount-input-wrapper">
+            <input type="number" id="topupAmount" [(ngModel)]="topupAmount" placeholder="0" />
+            <span>THB</span>
+          </div>
+        </div>
+
+        <div class="preset-group">
+          <label>เลือกจำนวนเงิน</label>
+          <div class="preset-buttons">
+            <button (click)="setTopupAmount(100)" [class.active]="topupAmount === 100">100</button>
+            <button (click)="setTopupAmount(200)" [class.active]="topupAmount === 200">200</button>
+            <button (click)="setTopupAmount(500)" [class.active]="topupAmount === 500">500</button>
+            <button (click)="setTopupAmount(1000)" [class.active]="topupAmount === 1000">
+              1,000
+            </button>
+          </div>
+        </div>
+
+        <button class="continue-btn" (click)="topUpWallet()">continue</button>
+      </div>
+    </section>
+  </div>
+</div>

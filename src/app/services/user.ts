@@ -41,7 +41,7 @@ export class AuthService {
   
   return response;
 }
-
+ 
 
 
 
@@ -55,6 +55,7 @@ export class AuthService {
     if (response && response.token) {
       localStorage.setItem('token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
+      localStorage.setItem('user_id', response.user.user_id.toString());
     }
     return response;
   }

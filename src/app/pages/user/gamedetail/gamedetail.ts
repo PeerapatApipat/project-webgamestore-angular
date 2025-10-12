@@ -4,6 +4,7 @@ import { Header } from '../header/header';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/admin';
 import { games } from '../../../model/game';
+import Swal from 'sweetalert2';
 
 // Interface สำหรับข้อมูลเพิ่มเติม (เผื่อ API ส่ง gallery หรือ ranking มาในอนาคต)
 interface GameDetail extends Partial<games> {
@@ -26,6 +27,7 @@ export class Gamedetail implements OnInit {
   gameId!: number;
   message: string = '';
   isError: boolean = false;
+  isBuying: boolean = false;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -73,14 +75,56 @@ export class Gamedetail implements OnInit {
   }
 
 
-  buyGame(gameId: number | undefined): void {
-    if (!gameId) {
-      console.error("Game ID is missing, cannot proceed with purchase.");
-      return;
+  async buyGame(gameId: number | undefined): Promise<void> {
+    if (!gameId) return;
+
+    this.isBuying = true;
+    this.cd.detectChanges();
+
+    try {
+      const result = await this.authService.purchaseGame([{ game_id: gameId, quantity: 1 }]);
+
+      await Swal.fire({
+        icon: 'success',
+        title: 'ชำระเงินสำเร็จ!',
+        html:
+          `<b>${this.game.title}</b><br>` +
+          `ยอดที่ชำระ: <b>${result.final_price} บาท</b><br>` +
+          `ยอดคงเหลือใน Wallet: <b>${result.remaining_balance} บาท</b>`,
+        confirmButtonText: 'ตกลง',
+        confirmButtonColor: '#3085d6',
+      });
+    } catch (error: any) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'ผิดพลาด!',
+        text: error.error?.message || 'ไม่สามารถซื้อเกมได้',
+      });
+    } finally {
+      this.isBuying = false;
+      this.cd.detectChanges();
     }
-    console.log(`User wants to buy game with ID: ${gameId}`);
-    
-    alert(`เพิ่มเกม "${this.game.title}" ลงในตะกร้าเรียบร้อย!`);
+  }
+  async confirmPurchase(gameId: number | undefined): Promise<void> {
+    if (!gameId) return;
+
+    const result = await Swal.fire({
+      title: 'ยืนยันการซื้อ?',
+      text: `คุณต้องการซื้อ "${this.game.title}" ในราคา ฿${this.game.price?.toFixed(
+        2
+      )} ใช่หรือไม่?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ยืนยันการชำระเงิน',
+      cancelButtonText: 'ยกเลิก',
+    });
+
+    if (result.isConfirmed) {
+      // ถ้าผู้ใช้กดยืนยัน → ไปเรียก buyGame()
+      this.buyGame(gameId);
+    }
   }
 }
 

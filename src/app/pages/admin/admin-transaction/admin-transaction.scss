@@ -1,0 +1,220 @@
+// Main Container
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #000;
+}
+
+app-header {
+  width: 250px;
+  background: #1a1a1a;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+// Content Wrapper - ใช้ flex: 1 ให้ขยายเต็มพื้นที่
+.content-wrapper {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: #000;
+  color: #fff;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    margin-top: 0;
+    padding-top: 2rem;
+    color: #ffffff;
+  }
+}
+.transaction-table {
+  tbody {
+    td {
+      &.amount {
+        font-weight: 600;
+        font-size: 1rem;
+        text-align: left;
+
+        &.topup {
+          color: #4caf50; // สีเขียว (เติมเงิน +)
+        }
+
+        &.purchase {
+          color: #f44336; // สีแดง (ซื้อเกม -)
+        }
+      }
+    }
+  }
+}
+// Loading, Error, Empty States
+.state-message {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.1rem;
+  color: #888888;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  margin: 20px 0;
+
+  &.error {
+    color: #ff6b6b;
+    background-color: #2a1a1a;
+  }
+}
+
+// Table Container
+.table-container {
+  background: #2d2d2d;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+// Transaction Table
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background: #3a3a3a;
+    
+    tr {
+      border-bottom: 1px solid #4a4a4a;
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      color: #b0b0b0;
+      font-weight: 500;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #3a3a3a;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: #333333;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 1.25rem 1rem;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+      vertical-align: middle;
+
+      // Username column (คอลัมน์แรก)
+      &:first-child {
+        font-weight: 500;
+        color: #ffffff;
+      }
+
+      // Amount column
+      &.amount {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #4caf50;
+        text-align: left;
+      }
+
+      // Status column (คอลัมน์สุดท้าย)
+      &:last-child {
+        color: #4caf50;
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #888888;
+  font-size: 1.1rem;
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+  .content-wrapper {
+    padding: 1.5rem;
+
+    h2 {
+      font-size: 1.75rem;
+      padding-top: 1rem;
+    }
+  }
+
+  .transaction-table {
+    font-size: 0.9rem;
+
+    thead th,
+    tbody td {
+      padding: 0.875rem 0.75rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding-top: 0.5rem;
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .transaction-table {
+    min-width: 800px;
+    font-size: 0.85rem;
+
+    thead th,
+    tbody td {
+      padding: 0.75rem 0.5rem;
+    }
+  }
+
+  .state-message {
+    padding: 2rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .transaction-table {
+    font-size: 0.85rem;
+
+    thead th,
+    tbody td {
+      padding: 0.75rem 0.5rem;
+    }
+  }
+}

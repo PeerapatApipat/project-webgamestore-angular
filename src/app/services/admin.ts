@@ -85,6 +85,26 @@
     const url = `${this.constants.API_ENDPOINT}/admin/updategame`;
     return await lastValueFrom(this.http.put(url, formData, { headers }));
   }
+
+   //ช้ื้อเกม
+  public async purchaseGame(
+      games: { game_id: number; quantity: number }[],
+      discount_code?: string
+    ): Promise<any> {
+      const token = this.getToken();
+      if (!token) throw new Error('Token ไม่พบ');
+  
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      });
+  
+      const url = `${this.constants.API_ENDPOINT}/purchase`;
+      const body = { games, discount_code };
+  
+      return await lastValueFrom(this.http.post(url, body, { headers }));
+    }
+    
     // logout
     public logout() {
       localStorage.removeItem('token');

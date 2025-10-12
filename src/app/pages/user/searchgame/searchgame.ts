@@ -8,6 +8,7 @@ import { games } from '../../../model/game';
 
 @Component({
   selector: 'app-searchgame',
+  standalone: true,
   imports: [CommonModule, FormsModule, Header, RouterLink],
   templateUrl: './searchgame.html',
   styleUrl: './searchgame.scss'
@@ -84,5 +85,10 @@ export class Searchgame {
       console.error('Failed to delete game:', error);
       alert('ลบเกมไม่สำเร็จ โปรดลองอีกครั้ง');
     }
+  }
+  viewGameDetails(id: number | undefined): void {
+    if (id === undefined) return;
+    console.log(`Navigating to details for game with ID: ${id}`);
+    this.router.navigate(['/detailgame', id]); 
   }
 }

@@ -1,0 +1,53 @@
+<div class="container">
+  <app-header></app-header>
+  <div class="content-wrapper">
+    <h2>User history</h2>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="state-message">⏳ กำลังโหลดข้อมูล...</div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="state-message error">⚠️ เกิดข้อผิดพลาด: {{ error }}</div>
+
+    <!-- Data Table -->
+    <div *ngIf="!loading && !error && transactions.length > 0" class="table-container">
+      <table class="transaction-table">
+        <thead>
+          <tr>
+            <th>ชื่อผู้ใช้/เวลา</th>
+            <th>วันที่</th>
+            <th>รายการ</th>
+            <th>ประเภท</th>
+            <th>ยอดเงิน(บาท)</th>
+            <th>สถานะ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tx of transactions; let i = index">
+            <!-- แสดงชื่อผู้ใช้เฉพาะแถวแรกของแต่ละคน -->
+            <td>
+              <span *ngIf="i === 0 || transactions[i - 1].username !== tx.username">
+                {{ tx.username }}
+              </span>
+            </td>
+            <td>{{ tx.date | date : 'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ tx.games || '-' }}</td>
+            <td>{{ tx.type }}</td>
+
+            <!-- แสดง +/- และสีตามประเภท -->
+            <td class="amount" [ngClass]="tx.type === 'เติมเงิน' ? 'topup' : 'purchase'">
+              {{ tx.type === 'เติมเงิน' ? '+' : '-' }}{{ tx.amount | number }}
+            </td>
+
+            <td>{{ tx.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Empty State -->
+      <div *ngIf="!loading && !error && transactions.length === 0" class="state-message">
+        ไม่พบข้อมูลธุรกรรม
+      </div>
+    </div>
+  </div>
+</div>

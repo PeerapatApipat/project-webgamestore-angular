@@ -178,3 +178,30 @@ app-header {
     color: #9c9c9c;
   }
 }
+.detail-btn {
+  display: inline-block;
+  padding: 5px 20px;
+  font-size: 16px;
+  font-weight: 200;
+  color: #ff00ff; /* สีชมพูม่วง */
+  background-color: transparent;
+  border: 2px solid #ff00ff; /* ขอบสีชมพูม่วง */
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 6px rgba(255, 0, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.2);
+}
+
+.detail-btn:hover {
+  background-color: #ff00ff; 
+  color: #ffffff; 
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.8), 0 0 40px rgba(255, 0, 255, 0.5);
+  transform: scale(1.03);
+}
+
+.detail-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+}

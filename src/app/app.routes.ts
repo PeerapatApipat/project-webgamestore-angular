@@ -15,6 +15,9 @@ import { Managegame } from './pages/admin/managegame/managegame';
 import { Searchgame } from './pages/user/searchgame/searchgame';
 import { Store } from './pages/user/store/store';
 import { Gamedetail } from './pages/user/gamedetail/gamedetail';
+import { Wallet } from './pages/user/wallet/wallet';
+import { Transactions } from './pages/user/transactions/transactions';
+import { AdminTransactions } from './pages/admin/admin-transaction/admin-transaction';
 
 export const routes: Routes = [
   { path: '', component: Login, pathMatch: 'full', canActivate: [loginGuard] },
@@ -26,12 +29,14 @@ export const routes: Routes = [
    { path: 'store', component: Store, canActivate: [userGuard] },
    { path: 'searchgame', component: Searchgame, canActivate: [userGuard] },
    { path: 'detailgame/:id', component: Gamedetail, canActivate: [userGuard] },
+  { path: 'topup', component: Wallet, canActivate: [userGuard] },
+  { path: 'transactions', component: Transactions, canActivate: [userGuard] },
 
   //admin
   { path: 'admin', component: Dashbord, canActivate: [adminGuard] },
   { path: 'newgame', component: Newgame, canActivate: [adminGuard] },
   { path: 'editgame/:id', component: Editgame, canActivate: [adminGuard] },
-    { path: 'managegame', component: Managegame, canActivate: [adminGuard] },
-
+  { path: 'managegame', component: Managegame, canActivate: [adminGuard] },
   { path: 'profileadmin', component: Profileadmin, canActivate: [adminGuard] },
+  { path: 'userhistory', component: AdminTransactions, canActivate: [adminGuard] },
 ];
