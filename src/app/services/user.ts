@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { Constants } from '../config/constants';
 import { User, LoginResponse } from '../model/user';
-
+import { LibraryGame } from '../model/library.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -24,6 +24,18 @@ export class AuthService {
 
   return response;
 }
+
+  public async getOwnedGames(): Promise<LibraryGame[]> {
+    const token = this.getToken();
+    if (!token) throw new Error('Token ไม่พบ');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const url = `${this.constants.API_ENDPOINT}/library`;
+    return await lastValueFrom(this.http.get<LibraryGame[]>(url, { headers }));
+  }
 
   // อัปเดตข้อมูล user name
    public async updateUser(data: { username?: string; userId?: string}): Promise<User> {

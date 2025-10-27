@@ -17,8 +17,6 @@ export class Store implements OnInit {
   
   allGames: Partial<games>[] = [];
   
-
-  // heroGame: Partial<games> | null = null;
   featuredGames: Partial<games>[] = [];
   displayGames: Partial<games>[] = []; 
 
@@ -49,7 +47,6 @@ export class Store implements OnInit {
     }
   }
 
-  // ฟังก์ชันใหม่สำหรับจัดระเบียบว่าเกมไหนจะไปแสดงที่ส่วนใด
   updateDisplayedGames(): void {
     const gamesToDisplay = this.getFilteredGames();
     // this.heroGame = gamesToDisplay.length > 0 ? gamesToDisplay[0] : null;

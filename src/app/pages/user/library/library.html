@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="container">
+  <app-header></app-header>
+
+  <div class="library-container">
+    <div class="top-search-bar">
+      
+      <div class="search-form"> 
+        <input 
+          type="text" 
+          placeholder="Search"
+          [(ngModel)]="searchQuery"
+          (input)="onFilterChange()">
+        <button class="search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      </div>
+
+    <div class="library-content">
+      <h1 class="page-title">My games</h1>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <select [(ngModel)]="selectedCategory" (change)="onFilterChange()">
+            <option value="all">All games</option>
+            <option value="RPG">RPG games</option>
+            <option value="Action">Action</option>
+            <option value="Shooter">Shooter</option>
+            </select>
+
+          <span class="sort-by-label">Sort by :</span>
+          <select [(ngModel)]="selectedSort" (change)="onFilterChange()">
+            <option value="title">Alphabetical</option>
+            <option value="installed_size" disabled>Installed size</option>
+            </select>
+
+          <button class="icon-btn-view" title="List View (Coming Soon)">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+        </div>
+        <div class="controls-right">
+          <select class="filters-dropdown" disabled>
+            <option value="">Filters</option>
+          </select>
+        </div>
+      </div>
+
+     <div class="game-grid" *ngIf="!isLoading; else loadingTemplate">
+        
+        <ng-container *ngIf="filteredGames.length > 0; else noGamesTemplate">
+          
+          <div class="game-card" *ngFor="let game of filteredGames" (click)="viewGameDetails(game.id)">
+            <img [src]="game.image_url" [alt]="game.title" class="game-poster">
+            <div class="game-info">
+              <h3 class="game-title">{{ game.title }}</h3>
+              <p class="game-publisher">{{ game.description || 'N/A' }}</p>
+              <div class="game-size">
+                <i class="fa-solid fa-download"></i>
+                <span>(Not Available)</span>
+              </div>
+            </div>
+          </div>
+          </ng-container>
+        <ng-template #noGamesTemplate>
+          <div class="status-message">
+            <p>You don't own any games yet.</p>
+            <button class="browse-btn" [routerLink]="['/store']">Browse Store</button>
+          </div>
+        </ng-template>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="status-message">
+    <p>Loading your library...</p>
+    </div>
+</ng-template>
+
+<ng-template #noGamesTemplate>
+  <div class="status-message">
+    <p>You don't own any games yet.</p>
+    <button class="browse-btn" [routerLink]="['/store']">Browse Store</button>
+  </div>
+</ng-template>

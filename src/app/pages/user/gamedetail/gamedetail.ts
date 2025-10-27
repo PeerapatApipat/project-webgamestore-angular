@@ -6,7 +6,6 @@ import { AuthService } from '../../../services/admin';
 import { games } from '../../../model/game';
 import Swal from 'sweetalert2';
 
-// Interface สำหรับข้อมูลเพิ่มเติม (เผื่อ API ส่ง gallery หรือ ranking มาในอนาคต)
 interface GameDetail extends Partial<games> {
   gallery?: string[];
   ranking?: number;
@@ -15,25 +14,26 @@ interface GameDetail extends Partial<games> {
 @Component({
   selector: 'app-gamedetail',
   standalone: true,
-  imports: [CommonModule, Header, RouterLink], // ลบ FormsModule ที่ไม่ได้ใช้ออก
+  imports: [CommonModule, Header, RouterLink], 
   templateUrl: './gamedetail.html',
   styleUrls: ['./gamedetail.scss']
 })
 export class Gamedetail implements OnInit {
   
   game: GameDetail = {};
-  otherGames: Partial<games>[] = []; // ข้อมูล "เกมอื่น" ควรจะมาจาก API ในอนาคต
+  otherGames: Partial<games>[] = []; 
   selectedImage: string | undefined = '';
   gameId!: number;
   message: string = '';
   isError: boolean = false;
   isBuying: boolean = false;
+  addtocart: boolean = false;
 
   constructor(
     private cd: ChangeDetectorRef,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router // Inject Router สำหรับการนำทาง
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class Gamedetail implements OnInit {
     }
   }
 
-  // ฟังก์ชันสำหรับเปลี่ยนรูปภาพหลักเมื่อคลิกที่ Thumbnail
+ 
   changeSelectedImage(imageUrl: string | undefined): void {
     this.selectedImage = imageUrl;
   }
@@ -105,6 +105,40 @@ export class Gamedetail implements OnInit {
       this.cd.detectChanges();
     }
   }
+
+
+  async addgametocart(gameId: number | undefined): Promise<void> {
+    if (!gameId) return;
+
+    this.addtocart = true;
+    this.cd.detectChanges();
+
+    try {
+      const result = await this.authService.addgametocart([{ game_id: gameId, quantity: 1 }]);
+
+      await Swal.fire({
+        icon: 'success',
+        title: 'เพิ่มเข้าตะกล้าสำเร็จ!',
+        // html:
+        //   `<b>${this.game.title}</b><br>` +
+        //   `ยอดที่ชำระ: <b>${result.final_price} บาท</b><br>` +
+        //   `ยอดคงเหลือใน Wallet: <b>${result.remaining_balance} บาท</b>`,
+        confirmButtonText: 'ตกลง',
+        confirmButtonColor: '#3085d6',
+      });
+    } catch (error: any) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'ผิดพลาด!',
+        text: error.error?.message || 'ไม่สามารถเพิ่มเข้าตะกล้าได้',
+      });
+    } finally {
+      this.isBuying = false;
+      this.cd.detectChanges();
+    }
+  }
+
+
   async confirmPurchase(gameId: number | undefined): Promise<void> {
     if (!gameId) return;
 
@@ -122,9 +156,34 @@ export class Gamedetail implements OnInit {
     });
 
     if (result.isConfirmed) {
-      // ถ้าผู้ใช้กดยืนยัน → ไปเรียก buyGame()
+     
       this.buyGame(gameId);
     }
   }
+
+
+  async confirmcart(gameId: number | undefined): Promise<void> {
+    if (!gameId) return;
+
+    const result = await Swal.fire({
+      title: 'ยืนยันการเพิ่มเข้าตะกล้า?',
+      text: `ยืนยันการเพิ่มเข้าตะกล้า "${this.game.title}" ในราคา ฿${this.game.price?.toFixed(
+        2
+      )} ใช่หรือไม่?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ยืนยันการเพิ่มเข้าตะกล้า',
+      cancelButtonText: 'ยกเลิก',
+    });
+
+    if (result.isConfirmed) {
+     
+      this.addgametocart(gameId);
+    }
+  }
+
+
 }
 

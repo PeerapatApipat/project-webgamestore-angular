@@ -3,6 +3,7 @@
   import { lastValueFrom } from 'rxjs';
   import { Constants } from '../config/constants';
   import { games } from '../model/game';
+import { BestsellerGame } from '../model/bestseller.model';
 
   @Injectable({
     providedIn: 'root',
@@ -104,6 +105,25 @@
   
       return await lastValueFrom(this.http.post(url, body, { headers }));
     }
+
+      //เพิ่มเกมเข้าตะกล้า
+    public async addgametocart(
+      games: { game_id: number; quantity: number }[],
+      discount_code?: string
+    ): Promise<any> {
+      const token = this.getToken();
+      if (!token) throw new Error('Token ไม่พบ');
+  
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      });
+  
+      const url = `${this.constants.API_ENDPOINT}/addgametocart`;
+      const body = { games, discount_code };
+  
+      return await lastValueFrom(this.http.post(url, body, { headers }));
+    }
     
     // logout
     public logout() {
@@ -123,4 +143,21 @@
       const games = localStorage.getItem('games');
       return games ? JSON.parse(games) : null;
     }
+
+public async getBestsellers(): Promise<BestsellerGame[]> {
+    const url = `${this.constants.API_ENDPOINT}/ranking`;
+
+    const token = this.getToken();
+    if (!token) throw new Error('Token ไม่พบ');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return await lastValueFrom(this.http.get<BestsellerGame[]>(url, { headers }));
+  }
+
+
+
+
+
   }

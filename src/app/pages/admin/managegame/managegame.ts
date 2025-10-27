@@ -62,7 +62,7 @@ export class Managegame implements OnInit {
         game.title?.toLowerCase().includes(lowerCaseSearchTerm)
       );
     }
-
+    this.cdr.detectChanges();
     this.filteredGames = tempGames;
   }
 
@@ -80,8 +80,9 @@ export class Managegame implements OnInit {
     try {
       await this.authService.deleteGameById({ id });
       this.games = this.games.filter(g => g.id !== id);
-      this.filterGames(); // Re-run filters to update the UI
+      this.filterGames(); 
       alert('ลบเกมสำเร็จ');
+      this.cdr.detectChanges();
     } catch (error) {
       console.error('Failed to delete game:', error);
       alert('ลบเกมไม่สำเร็จ โปรดลองอีกครั้ง');

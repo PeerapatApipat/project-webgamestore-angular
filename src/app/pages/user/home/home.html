@@ -1,10 +1,137 @@
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <div class="container">
   <app-header></app-header>
+
+  <div class="store">
+    <div class="top-search-bar">
+      <input
+        type="text"
+        class="top-search-input"
+        placeholder="Search"
+        [(ngModel)]="searchTerm"
+        (input)="onFilterChange()"
+      />
+      <button class="top-search-button"><i class="fa-solid fa-search"></i></button>
+    </div>
+
   
 
-  <div class="home">
+    <div class="main-content">
+      <h2 class="section-title">News <i class="fa-solid fa-chevron-right"></i></h2>
+      <div class="featured-grid">
+        <div class="featured-card" *ngFor="let game of featuredGames" 
+             [style.backgroundImage]="'url(' + game.image_url + ')'"
+             (click)="viewGameDetails(game.id)">
+          <div class="featured-content">
+            <h3>{{ game.title }}</h3>
+            <p>{{ game.description || 'Find beauty in terror' }}</p>
+          </div>
+        </div>
+      </div>
 
-    <h1>home</h1>
+      <div class="category-pills">
+        <button class="pill-btn" [class.active]="selectedCategory === ''" (click)="selectCategory('')">All games</button>
+        <button class="pill-btn" *ngFor="let cat of categories.slice(0, 4)" 
+                [class.active]="selectedCategory === cat" 
+                (click)="selectCategory(cat)">{{ cat }}</button>
+        <button class="pill-btn">More</button>
+      </div>
 
+      <h2 class="section-title">Game All <i class="fa-solid fa-chevron-right"></i></h2>
+      <div class="game-grid">
+        <div class="game-card" *ngFor="let game of displayGames" (click)="viewGameDetails(game.id)">
+          <div class="card-image" [style.backgroundImage]="'url(' + game.image_url + ')'"></div>
+          <div class="card-content">
+            <h3 class="game-title">{{ game.title }}</h3>
+            <p class="game-publisher">{{ game.category || 'Unknown Publisher' }}</p>
+            <p class="game-price">฿{{ game.price?.toFixed(2) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<div class="container">
+  <app-header></app-header>
+
+  <div class="store">
+    <div class="top-search-bar">
+      <input
+        type="text"
+        class="top-search-input"
+        placeholder="Search"
+        [(ngModel)]="searchTerm"
+        (input)="onFilterChange()"
+      />
+      <button class="top-search-button"><i class="fa-solid fa-search"></i></button>
+    </div>
+
+    <div class="main-content">
+      <h2 class="section-title">News <i class="fa-solid fa-chevron-right"></i></h2>
+      <div class="featured-grid">
+        <div
+          class="featured-card"
+          *ngFor="let game of featuredGames"
+          [style.backgroundImage]="'url(' + game.image_url + ')'"
+          (click)="viewGameDetails(game.id)"
+        >
+          <div class="featured-content">
+            <h3>{{ game.title }}</h3>
+            <p>{{ game.description || 'Find beauty in terror' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-pills">
+        <button
+          class="pill-btn"
+          [class.active]="selectedCategory === ''"
+          (click)="selectCategory('')"
+        >
+          All games
+        </button>
+        <button
+          class="pill-btn"
+          *ngFor="let cat of categories.slice(0, 4)"
+          [class.active]="selectedCategory === cat"
+          (click)="selectCategory(cat)"
+        >
+          {{ cat }}
+        </button>
+        <button class="pill-btn">More</button>
+      </div>
+      <h2 class="section-title">Top 5 Bestsellers <i class="fa-solid fa-chevron-right"></i></h2>
+      <div class="game-grid">
+        <div
+          class="game-card"
+          *ngFor="let game of bestsellerGames"
+          (click)="viewGameDetails(game.game_id)"
+        >
+          <div class="card-image" [style.backgroundImage]="'url(' + game.image_url + ')'"></div>
+          <div class="card-content">
+            <h3 class="game-title">{{ game.title }}</h3>
+            <p class="game-publisher">{{ game.total_sold | number }} sold</p>
+            <p class="game-price">฿{{ game.price?.toFixed(2) }}</p>
+          </div>
+        </div>
+      </div>
+      <h2 class="section-title">Game All <i class="fa-solid fa-chevron-right"></i></h2>
+      <div class="game-grid">
+        <div class="game-card" *ngFor="let game of displayGames" (click)="viewGameDetails(game.id)">
+          <div class="card-image" [style.backgroundImage]="'url(' + game.image_url + ')'"></div>
+          <div class="card-content">
+            <h3 class="game-title">{{ game.title }}</h3>
+            <p class="game-publisher">{{ game.category || 'Unknown Publisher' }}</p>
+            <p class="game-price">฿{{ game.price?.toFixed(2) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

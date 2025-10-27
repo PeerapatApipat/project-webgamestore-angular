@@ -15,7 +15,7 @@ import { games } from '../../../model/game';
 })
 export class Searchgame {
  games: Partial<games>[] = [];
-  // List of games to display after filtering
+
   filteredGames: Partial<games>[] = [];
 
   
@@ -79,7 +79,7 @@ export class Searchgame {
     try {
       await this.authService.deleteGameById({ id });
       this.games = this.games.filter(g => g.id !== id);
-      this.filterGames(); // Re-run filters to update the UI
+      this.filterGames();
       alert('ลบเกมสำเร็จ');
     } catch (error) {
       console.error('Failed to delete game:', error);

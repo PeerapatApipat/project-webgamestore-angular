@@ -1,0 +1,261 @@
+/* Import_Font_Awesome (ถ้าคุณยังไม่ได้ import ใน styles.scss หลัก) */
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css";
+
+/* Base styles (จากไฟล์เดิม) */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+*, *:before, *:after { 
+  box-sizing: inherit; 
+}
+
+/* สีหลัก (จาก gamedetail.scss) */
+$primary-purple: #8A2BE2;
+$dark-bg: #111;
+$content-bg: #1e1e1e;
+$text-light: #fff;
+$text-muted: #aaa;
+$grey-ui: #2c2c2c;
+
+/* Layout (จากไฟล์เดิม) */
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: $dark-bg;
+}
+
+app-header {
+  width: 250px;
+  background: #1a1a1a; /* สีจากไฟล์เดิม */
+  color: $text-light;
+  flex-shrink: 0;
+}
+
+/* Main cart content styles */
+.cart-container {
+  flex: 1;
+  color: $text-light;
+  padding: 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* ทำให้ footer ยืดไปด้านล่างได้ */
+  overflow: hidden;
+}
+
+/* Header (Title, Search, Wallet) */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-shrink: 0;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: $grey-ui;
+    border-radius: 20px;
+    width: 350px;
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      color: $text-light;
+      font-size: 0.9rem;
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .search-btn {
+      background: $primary-purple;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      color: $text-light;
+      cursor: pointer;
+      margin-right: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: darken($primary-purple, 10%);
+      }
+    }
+  }
+
+  .wallet-balance {
+    background: $grey-ui;
+    border: none;
+    color: $text-light;
+    padding: 0.75rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    strong {
+      color: $text-light; // ในรูปดูเหมือนจะสว่างกว่า
+      font-weight: 600;
+    }
+  }
+}
+
+/* Cart Body (List) */
+.cart-body {
+  flex: 1; /* ทำให้ส่วนนี้ยืดและดัน footer ลงล่าง */
+  overflow-y: auto; /* เปิดให้ scroll ได้ถ้ามีของเยอะ */
+  padding-right: 1rem; // กัน scrollbar
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: $content-bg;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+
+  .item-image {
+    width: 200px;
+    height: 112px; // 16:9 ratio
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .item-details {
+    flex: 1;
+    .item-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 0 0 0.5rem 0;
+    }
+    .item-description {
+      font-size: 0.85rem;
+      color: $text-muted;
+      line-height: 1.6;
+    }
+  }
+
+  .item-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 1rem;
+
+    .item-price {
+      font-size: 1.1rem;
+      font-weight: 500;
+      width: 120px;
+      text-align: right;
+    }
+    
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      border: none;
+      color: $text-light;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &.purple {
+        background: $primary-purple;
+        &:hover {
+          background-color: darken($primary-purple, 10%);
+        }
+      }
+    }
+  }
+}
+
+/* Footer (Checkout) */
+.cart-footer {
+  flex-shrink: 0; /* ไม่ให้หด */
+  background: $content-bg;
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2rem;
+  align-items: center;
+
+  .discount-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    
+    p { margin: 0; color: $text-muted; }
+    span {
+      background: $grey-ui;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .use-discount-btn {
+      background: none;
+      border: none;
+      color: $primary-purple;
+      font-size: 0.9rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .summary-details {
+    justify-self: end;
+    display: grid;
+    gap: 0.5rem;
+    width: 280px;
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      
+      span:first-child { color: $text-muted; }
+      span:last-child { color: $text-light; font-weight: 500; }
+      
+      &.subtotal {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        span { color: $text-light; }
+      }
+    }
+  }
+
+  .checkout-btn {
+    padding: 0.9rem 2.5rem;
+    background-color: $primary-purple;
+    border: none;
+    color: $text-light;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: darken($primary-purple, 10%);
+    }
+  }
+}

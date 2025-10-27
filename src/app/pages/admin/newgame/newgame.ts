@@ -62,7 +62,6 @@ constructor(
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      // Validate file type
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
       if (!allowedTypes.includes(file.type)) {
         this.message = 'กรุณาเลือกไฟล์รูปภาพเท่านั้น (jpg, jpeg, png, gif)';
@@ -130,17 +129,12 @@ constructor(
       this.previewUrl = null;
       this.errors = { title: '', price: '' };
 
-      // รีเซ็ต form state - สำคัญมาก!
       if (this.newgameForm) {
         this.newgameForm.resetForm();
       }
 
       this.cd.detectChanges();
-
-      // Alert แจ้งเตือน
       alert('เพิ่มเกมสำเร็จ!');
-
-      // Redirect ไปหน้า login
       setTimeout(() => {
         this.router.navigate(['/newgame']);
       }, 500);
@@ -169,7 +163,7 @@ constructor(
   }
 
 
-// หมวดหมู่ที่เลือกไว้
+
 selectedCategories: string[] = [];
 dropdownOpen: boolean = false;
 
@@ -180,9 +174,9 @@ toggleDropdown(): void {
 toggleCategory(cat: string): void {
   const index = this.selectedCategories.indexOf(cat);
   if (index > -1) {
-    this.selectedCategories.splice(index, 1); // ถ้ามีอยู่แล้วให้ลบออก
+    this.selectedCategories.splice(index, 1); 
   } else {
-    this.selectedCategories.push(cat); // ถ้ายังไม่มีให้เพิ่มเข้าไป
+    this.selectedCategories.push(cat); 
   }
   this.game.category = this.selectedCategories.join(', ');
 }

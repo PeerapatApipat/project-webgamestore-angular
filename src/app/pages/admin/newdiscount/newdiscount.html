@@ -1,0 +1,104 @@
+<div class="container">
+  <app-header></app-header>
+
+  <div class="main-content">
+    <div class="main-header">
+      <h2 class="title">Manage Discount Codes</h2>
+    </div>
+
+    <div class="form-container">
+      <form #discountForm="ngForm" (ngSubmit)="handleFormSubmit(discountForm)">
+        <h3>{{ isEditMode ? 'Edit Discount Code' : 'Add New Code' }}</h3>
+
+        <input
+          type="text"
+          name="code"
+          placeholder="Discount Code (e.g., SALE50)"
+          [(ngModel)]="codeForm.code"
+          required
+          #code="ngModel"
+        />
+
+        <input
+          type="number"
+          name="discount_percent"
+          placeholder="Discount Percent (e.g., 50)"
+          [(ngModel)]="codeForm.discount_percent"
+          required
+          min="1"
+          max="100"
+          #percent="ngModel"
+        />
+
+        <input
+          type="number"
+          name="max_uses"
+          placeholder="Maximum Uses (e.g., 100)"
+          [(ngModel)]="codeForm.max_uses"
+          required
+          min="1"
+          #maxUses="ngModel"
+        />
+
+        <label for="expire_date">Expire Date</label>
+        <input
+          type="date"
+          name="expire_date"
+          [(ngModel)]="codeForm.expire_date"
+          required
+          #expireDate="ngModel"
+        />
+
+        <p *ngIf="message" [class.error]="isError" [class.success]="!isError">
+          {{ message }}
+        </p>
+
+        <div class="button-group">
+          <button type="submit" [disabled]="isLoading || discountForm.invalid">
+            {{ isLoading ? 'Loading...' : isEditMode ? 'Update Code' : 'Add Code' }}
+          </button>
+          <button
+            type="button"
+            class="cancel-btn"
+            *ngIf="isEditMode"
+            (click)="resetForm(discountForm)"
+          >
+            Cancel Edit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="list-container">
+      <h3>Existing Codes</h3>
+
+      <p *ngIf="isLoadingList">Loading codes...</p>
+
+      <p *ngIf="!isLoadingList && discounts.length === 0">No discount codes found.</p>
+
+      <table *ngIf="!isLoadingList && discounts.length > 0">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Percent</th>
+            <th>Usage (Used/Max)</th>
+            <th>Expires</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let code of discounts">
+            <td>{{ code.code }}</td>
+            <td>{{ code.discount_percent }}%</td>
+            <td>{{ code.used_count }} / {{ code.max_uses }}</td>
+            <td>{{ code.expire_date | date : 'dd/MM/yyyy' }}</td>
+            <td class="action-buttons">
+              <button class="edit-btn" (click)="selectForEdit(code)">Edit</button>
+              <button class="delete-btn" (click)="deleteCode(code.id, code.code)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,187 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background:#1c1c1c;
+}
+
+.main-content {
+  flex: 1;
+  background: #111;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 10%;
+  padding-bottom: 100px; // เพิ่ม padding ด้านล่าง
+}
+
+
+.main-header {
+  width: 100%;
+  text-align: left;
+  padding: 30px 60px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 380px;
+  background: transparent;
+  margin-bottom: 40px; // เว้นระยะห่างจากตาราง
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; // ลด gap ลงเล็กน้อย
+  width: 100%;
+}
+
+input,
+textarea {
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #fff;
+  font-size: 15px;
+  width: 100%;
+}
+
+// เพิ่ม label สำหรับ input date
+label {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: -10px;
+  margin-left: 2px;
+}
+
+button {
+  background: #8a2be2; // Purple
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background: #a020f0;
+}
+
+button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.error, .error-message {
+  color: #ff4d4d;
+  text-align: center;
+  font-size: 14px;
+  margin-top: -5px;
+}
+
+.success {
+  color: #4dff4d;
+  text-align: center;
+}
+
+// สไตล์สำหรับปุ่ม Cancel
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.cancel-btn {
+    background: #444;
+    flex: 1;
+    &:hover {
+        background: #666;
+    }
+}
+// --- จบสไตล์ที่คัดลอกมา ---
+
+
+.list-container {
+  width: 80%; // ปรับความกว้างตามชอบ
+  max-width: 900px;
+  color: #fff;
+
+  h3 {
+    font-size: 1.2rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    
+    thead {
+      background: #222;
+      th {
+        padding: 12px 15px;
+        text-align: left;
+        font-size: 14px;
+        color: #aaa;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #333;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #1a1a1a;
+        }
+
+        td {
+          padding: 12px 15px;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
+
+// สไตล์สำหรับปุ่ม Edit / Delete ในตาราง
+.action-buttons {
+  display: flex;
+  gap: 10px;
+
+  .edit-btn, .delete-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+
+  .edit-btn {
+    background: #007bff; // Blue
+    &:hover {
+        background: #0056b3;
+    }
+  }
+
+  .delete-btn {
+    background: #dc3545; // Red
+    &:hover {
+        background: #c82333;
+    }
+  }
+}

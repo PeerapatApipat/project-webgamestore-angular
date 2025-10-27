@@ -18,6 +18,11 @@ import { Gamedetail } from './pages/user/gamedetail/gamedetail';
 import { Wallet } from './pages/user/wallet/wallet';
 import { Transactions } from './pages/user/transactions/transactions';
 import { AdminTransactions } from './pages/admin/admin-transaction/admin-transaction';
+import { CartComponent } from './pages/user/cart/cart';
+import { Newdiscount } from './pages/admin/newdiscount/newdiscount';
+import { LibraryComponent } from './pages/user/library/library';
+
+
 
 export const routes: Routes = [
   { path: '', component: Login, pathMatch: 'full', canActivate: [loginGuard] },
@@ -31,6 +36,8 @@ export const routes: Routes = [
    { path: 'detailgame/:id', component: Gamedetail, canActivate: [userGuard] },
   { path: 'topup', component: Wallet, canActivate: [userGuard] },
   { path: 'transactions', component: Transactions, canActivate: [userGuard] },
+  { path: 'mycart', component: CartComponent, canActivate: [userGuard] },
+  { path: 'library', component: LibraryComponent, canActivate: [userGuard] },
 
   //admin
   { path: 'admin', component: Dashbord, canActivate: [adminGuard] },
@@ -39,4 +46,6 @@ export const routes: Routes = [
   { path: 'managegame', component: Managegame, canActivate: [adminGuard] },
   { path: 'profileadmin', component: Profileadmin, canActivate: [adminGuard] },
   { path: 'userhistory', component: AdminTransactions, canActivate: [adminGuard] },
+  { path: 'newdiscount', component: Newdiscount, canActivate: [adminGuard] },
+
 ];

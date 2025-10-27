@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="container">
+  <app-header></app-header>
+
+  <div class="cart-container" *ngIf="!isLoading; else loadingTemplate">
+
+    <div class="cart-header">
+      <h1>My cart ({{ cartItems.length }})</h1>
+      <div class="search-bar">
+        <input type="text" placeholder="Search game in cart">
+        <button class="search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      <button class="wallet-balance">
+        My wallet : <strong>฿{{ walletBalance.toFixed(2) }}</strong>
+      </button>
+    </div>
+
+    <div class="cart-body" *ngIf="cartItems.length > 0; else emptyCartTemplate">
+      
+      <div class="cart-item" *ngFor="let item of cartItems">
+        <img class="item-image" [src]="item.image_url" [alt]="item.title">
+        
+        <div class="item-details">
+          <h3 class="item-title">{{ item.title }}</h3>
+          <p class="item-description">{{ item.description }}</p>
+        </div>
+
+        <div class="item-actions">
+          <span class="item-price">THB{{ item.price.toFixed(2) }}</span>
+          <button class="icon-btn purple" (click)="handleRemoveItem(item)" title="ลบออกจากตะกร้า">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <button class="icon-btn purple" title="เพิ่มใน Wishlist (ยังไม่ทำงาน)">
+            <i class="fa-solid fa-bookmark"></i>
+          </button>
+        </div>
+      </div>
+      </div>
+
+    <div class="cart-footer" *ngIf="cartItems.length > 0">
+      
+      <div class="discount-section">
+        <input 
+          type="text" 
+          placeholder="Discount Code" 
+          class="discount-input"
+          [(ngModel)]="discountCodeInput"
+          [disabled]="isProcessing">
+        <button 
+          class="use-discount-btn" 
+          (click)="handleValidateCode()"
+          [disabled]="isProcessing || !discountCodeInput">
+          {{ isProcessing ? 'Checking...' : 'Use Code' }}
+        </button>
+      </div>
+
+      <div class="summary-details">
+        <div *ngIf="discountError" class="summary-row error-text">
+          <span>{{ discountError }}</span>
+        </div>
+        <div *ngIf="appliedDiscount" class="summary-row success-text">
+          <span>ส่วนลด ({{ appliedDiscount.discount_percent }}%)</span>
+          <span>- THB {{ discountAmount.toFixed(2) }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Price</span>
+          <span>THB {{ totalPrice.toFixed(2) }}</span>
+        </div>
+        <div class="summary-row subtotal">
+          <span>Subtotal</span>
+          <span>THB {{ subtotal.toFixed(2) }}</span>
+        </div>
+      </div>
+
+      <button 
+        class="checkout-btn" 
+        (click)="handleCheckout()" 
+        [disabled]="isProcessing || cartItems.length === 0">
+        {{ isProcessing ? 'Processing...' : 'Check Out' }}
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="status-message">
+    <p>Loading your cart...</p>
+    </div>
+</ng-template>
+
+<ng-template #emptyCartTemplate>
+  <div class="empty-cart-message">
+    <h2>Your cart is empty</h2>
+    <p>Looks like you haven't added any games to your cart yet.</p>
+   <button class="browse-btn" [routerLink]="['/store']">Browse Games</button>
+  </div>
+</ng-template>
